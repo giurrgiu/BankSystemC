@@ -104,13 +104,11 @@ void Update_Accounts(FILE *accounts, struct client L, int position, short edit, 
             {
 
                 if (c == '\n')
-                {
                     lines++;
-                }
+                
                 if (lines != position)
-                {
                     fputc(c, rewrite);
-                }
+                
                 if (lines == position && edit == EDIT_ON && editDone == 0)
                 {
                     struct account to_update = Return_Account(L, accountPosition);
