@@ -139,6 +139,7 @@ void Delete(struct client *loggedClient)
     
     system("cls");
     printf("Delete Account \n");
+
     if(loggedClient->length==0)
         printf("You don't have an account to delete!");
     else 
@@ -163,9 +164,6 @@ void Delete(struct client *loggedClient)
 
 void View(struct client loggedClient)
 {
-
-    //int stateFile=
-
     system("cls");
     printf("Accounts owned: %d\n", loggedClient.length);
     
