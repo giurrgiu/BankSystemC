@@ -1,6 +1,5 @@
 
 #include "utilities.h"
-//#include "clients.h"
 
 long long Convert_To_Long_Long(char number[])
 {
@@ -34,11 +33,7 @@ void Generate_IBAN(char IBAN[])
     if (Verify_IBAN(fAccounts, IBAN) == 0)
         return;
     else
-    {
-
-        //printf("NU!");
         Generate_IBAN(IBAN);
-    }
 }
 
 char *Concatenate_Names(char *fullName, char firstName[], char lastName[])
@@ -86,16 +81,19 @@ void Verify_Login(char *userPrompt, struct client *loggedClient)
                 command[charC]=userPrompt[i];
                 charC++;
             }
+
             if(spaces == 1)
             {
                 firstName[charF]=userPrompt[i];
                 charF++; 
             }
+
             if(spaces==2)
             {
                 lastName[charL]=userPrompt[i];
                 charL++;
             }
+
         }
     }
     
@@ -108,6 +106,7 @@ void Verify_Login(char *userPrompt, struct client *loggedClient)
         printf("Invalid command!\n \tYou have to use command: login\n");
         error = 'x';
     }
+    
     if (strlen(firstName) > 29)
     {
         printf("\tFirst Name's length is bigger than 29!\n");
