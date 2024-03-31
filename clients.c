@@ -24,10 +24,10 @@ void LogOut_Client(struct client *loggedClient) {
 }
 
 
-struct account Return_Account(struct client L, int position)
+struct account Return_Account(struct client loggedClient, int position)
 {
     struct account *aux;
-    aux = L.prim;
+    aux = loggedClient.prim;
     
     int count = 1;
     
@@ -44,11 +44,11 @@ void Print_Account(struct account loggedClient){
     printf("Your chosen account:%s %s\n\tFunds:%lld\n", loggedClient.IBAN, loggedClient.CURRENCY, loggedClient.AMOUNT);
 }
 
-void Append(struct client *L, char iban[], char owner[], char currency[], long long money)
+void Append(struct client *loggedClient, char iban[], char owner[], char currency[], long long money)
 {
     struct account *aux=malloc(sizeof(struct account));
 
-    if (L->head == NULL)
+    if (loggedClient->head == NULL)
     {
 
         strcpy(aux->IBAN, iban);
@@ -58,8 +58,8 @@ void Append(struct client *L, char iban[], char owner[], char currency[], long l
         aux->AMOUNT = money;
 
         aux->next = NULL;
-        L->head = L->prim = L->last = aux;
-        L->length = 1;
+        loggedClient->head = loggedClient->prim = loggedClient->last = aux;
+        loggedClient->length = 1;
 
     }
     else
@@ -73,20 +73,20 @@ void Append(struct client *L, char iban[], char owner[], char currency[], long l
 
         aux->next = NULL;
 
-        L->length++;
+        loggedClient->length++;
 
-        L->head->next = aux;
-        L->head = aux;
-        L->last = L->head;
+        loggedClient->head->next = aux;
+        loggedClient->head = aux;
+        loggedClient->last = loggedClient->head;
         
     }
 }
 
-void Print_Accounts(struct client L)
+void Print_Accounts(struct client loggedClient)
 {
-    if (L.length != 0)
+    if (loggedClient.length != 0)
     {
-        struct account *aux = L.prim;
+        struct account *aux = loggedClient.prim;
         
         while (aux != NULL)
         {
@@ -95,44 +95,53 @@ void Print_Accounts(struct client L)
         }
     }
 }
-void Delete_Account(struct client *L, int position)
+void Delete_Account(struct client *loggedClient, int position)
 {
-    if (L->length == 1)
+    if (loggedClient->length == 1)
     {
-        free(L->prim);
-        free(L->head);
-        free(L->last);
+        free(loggedClient->prim);
+        free(loggedClient->head);
+        free(loggedClient->last);
     }
 
     else if (position == 1)
     {
         struct account *aux;
-        aux = L->prim;
-        L->prim = L->prim->next;
+
+        aux = loggedClient->prim;
+        loggedClient->prim = loggedClient->prim->next;
+
         aux->next = NULL;
         free(aux);
     }
 
-    else if (position > 1 && position < L->length)
+    else if (position > 1 && position < loggedClient->length)
     {
         short count = 1;
+        
         struct account *aux;
-        aux = L->prim;
+        aux = loggedClient->prim;
+        
         while (count < position - 1)
         {
             aux = aux->next;
             count++;
         }
+        
         struct account *to_delete = aux->next;
+        
         aux->next = aux->next->next;
         to_delete->next = NULL;
+        
         free(to_delete);
     }
-    else if (position == L->length)
+    else if (position == loggedClient->length)
     {
         short count = 1;
+        
         struct account *aux;
-        aux = L->prim;
+        aux = loggedClient->prim;
+        
         while (count < position - 1)
         {
             aux = aux->next;
@@ -140,19 +149,21 @@ void Delete_Account(struct client *L, int position)
         }
         struct account *to_delete = aux;
         to_delete = to_delete->next;
+        
         aux->next = NULL;
-        L->last = aux;
+        loggedClient->last = aux;
+        
         to_delete->next = NULL;
         free(to_delete);
     }
-    L->length--;
+    loggedClient->length--;
 }
 
-void Edit_Account(struct client *L, short account, short choice, long long transaction, int *status_IBAN)
+void Edit_Account(struct client *loggedClient, short account, short choice, long long transaction, int *status_IBAN)
 {
     
     struct account *aux;
-    aux = L->prim;
+    aux = loggedClient->prim;
     
     short count = 1;
     
