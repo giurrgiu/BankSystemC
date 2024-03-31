@@ -61,8 +61,6 @@ void commands(int menuOption)
         case 1:
             
             Login(&loggedClient);
-            //int x;
-            //scanf("%d",&x);
             Menu(&client_logged);
             
             break;
@@ -100,6 +98,7 @@ void commands(int menuOption)
             
             break;
         case 7:
+        
             LogOut_Client(&loggedClient);
             exit(EXIT_SUCCESS);
             
