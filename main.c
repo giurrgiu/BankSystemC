@@ -23,32 +23,19 @@ void Menu(int *logged)
     printf("\t\t    Bank of Checheci \t\t\n");
 
     if (*logged == 0)
-        printf("\t\tYou must login to continue\n");
-
-    print_commands();
-
-    scanf("%d", &menuOption);
-    if(*logged==1 &&menuOption==1){
-        printf("You are already logged in!\nChoose another option:");
-        menuOption=Verify_Choice(START_MENU+1,END_MENU);
-
-    }
-    if (menuOption == 7)
-        commands(menuOption);
-    
-    if (*logged == 0)
     {
-        if (menuOption != 1)
-            do
-            {
-                scanf("%d", &menuOption);
-            
-            } while (menuOption != 1);
-        
         *logged = 1;
+        commands(1);
     }
+    else
+    {
+    print_commands();
     
+    printf("\nYour option:");
+    menuOption=Verify_Choice(START_MENU+1,END_MENU);    
+
     commands(menuOption);
+    }
 }
 
 void commands(int menuOption)
@@ -71,6 +58,7 @@ void commands(int menuOption)
             Menu(&client_logged);
             
             break;
+
         case 3:
             
             Create(&loggedClient);
@@ -91,12 +79,14 @@ void commands(int menuOption)
             Menu(&client_logged);
             
             break;
+
         case 6:
             
             Transact(&loggedClient);
             Menu(&client_logged);
             
             break;
+            
         case 7:
         
             LogOut_Client(&loggedClient);
