@@ -8,7 +8,6 @@
 
 void print_commands()
 {
-    printf("\t\t   1.LOGIN\n");
     printf("\t\t   2.EDIT ACCOUNT \n");
     printf("\t\t   3.CREATE ACCOUNT\n");
     printf("\t\t   4.DELETE ACCOUNT\n");
