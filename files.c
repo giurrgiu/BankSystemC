@@ -103,17 +103,18 @@ void Update_Accounts(FILE *accounts, struct client L, int position, short edit, 
             while (c != EOF)
             {
 
+                if (lines != position)
+                    fputc(c, rewrite);
+
                 if (c == '\n')
                     lines++;
                 
-                if (lines != position)
-                    fputc(c, rewrite);
                 
                 if (lines == position && edit == EDIT_ON && editDone == 0)
                 {
                     struct account to_update = Return_Account(L, accountPosition);
                     
-                    fprintf(rewrite, "\n%s %s %s %lld", to_update.OWNER, to_update.IBAN, to_update.CURRENCY, to_update.AMOUNT);
+                    fprintf(rewrite, "%s %s %s %lld\n", to_update.OWNER, to_update.IBAN, to_update.CURRENCY, to_update.AMOUNT);
                     
                     editDone = 1;
                 }
@@ -309,6 +310,7 @@ int Get_Line_Position(FILE *accounts, struct client L, int position)
         
         while (fscanf(accounts, "%s %s %s %s %s", searchSurname, searchName, iban, currency, amount) > 0)
         {
+            //& WHAT THE FUCK?
             fileLines++;
             if (strcmp(searchSurname, L.surname) == 0 && strcmp(searchName, L.name) == 0)
             {
