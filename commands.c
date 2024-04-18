@@ -70,7 +70,7 @@ void Edit(struct client *loggedClient)
         chosenAccount = Return_Account(*loggedClient, editAccount);
 
         fileLinePosition = Get_Line_Position(fAccounts, *loggedClient, editAccount);
-
+        
         Update_Accounts(fAccounts, *loggedClient, fileLinePosition, EDIT_ON, editAccount);
         printf("Your account was succesfully edited!");
     }
