@@ -310,7 +310,6 @@ int Get_Line_Position(FILE *accounts, struct client L, int position)
         
         while (fscanf(accounts, "%s %s %s %s %s", searchSurname, searchName, iban, currency, amount) > 0)
         {
-            //& WHAT THE FUCK?
             fileLines++;
             if (strcmp(searchSurname, L.surname) == 0 && strcmp(searchName, L.name) == 0)
             {
